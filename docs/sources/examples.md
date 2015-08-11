@@ -35,7 +35,7 @@ model.add(Dense(20, 64, init='uniform', activation='tanh'))
 model.add(Dropout(0.5))
 model.add(Dense(64, 64, init='uniform', activation='tanh'))
 model.add(Dropout(0.5))
-model.add(Dense(64, 2, init='uniform', activation='softmax')
+model.add(Dense(64, 2, init='uniform', activation='softmax'))
 
 sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='mean_squared_error', optimizer=sgd)
@@ -92,6 +92,7 @@ from keras.layers.embeddings import Embedding
 from keras.layers.recurrent import LSTM
 
 model = Sequential()
+# Add a mask_zero=True to the Embedding connstructor if 0 is a left-padding value in your data
 model.add(Embedding(max_features, 256))
 model.add(LSTM(256, 128, activation='sigmoid', inner_activation='hard_sigmoid'))
 model.add(Dropout(0.5))
@@ -106,8 +107,9 @@ score = model.evaluate(X_test, Y_test, batch_size=16)
 
 ---
 
-### Architecture for learning image captions with a convnet and a Gated Recurrent Unit
-(word-level embedding, caption of maximum length 16 words).
+### Image captioning
+
+Architecture for learning image captions with a convnet and a Gated Recurrent Unit (word-level embedding, caption of maximum length 16 words).
 
 Note that getting this to actually "work" will require using a bigger convnet, initialized with pre-trained weights.
 Displaying readable results will also require an embedding decoder.
